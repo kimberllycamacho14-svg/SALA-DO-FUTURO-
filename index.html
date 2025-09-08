@@ -2,36 +2,58 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>p5.js – Círculo com cor baseada em X e Y</title>
-  <!-- p5.js CDN -->
+  <title>Random Walk Colorido</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.3/p5.min.js"></script>
   <style>
-    body { margin: 0; display: grid; place-items: center; height: 100vh; background: #f4f4f4; }
-    main { box-shadow: 0 10px 30px rgba(0,0,0,.1); border-radius: 12px; overflow: hidden; }
-    /* Ajusta o canvas para não ficar borrado em telas retina */
-    canvas { display: block; }
+    body {
+      margin: 0;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      border: 2px solid #fff;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
-  <main></main>
   <script>
+    let bolhas = [];
+
     function setup() {
-      const cnv = createCanvas(400, 400);
-      // Opcional: monta o canvas dentro do <main>
-      cnv.parent(document.querySelector('main'));
+      createCanvas(400, 400);
+      // cria várias bolhas em posições aleatórias
+      for (let i = 0; i < 20; i++) {
+        bolhas.push({
+          x: random(width),
+          y: random(height),
+          r: random(20, 40),     // raio
+          cor: [random(255), random(255), random(255)] // cor aleatória
+        });
+      }
     }
 
     function draw() {
-      let r = map(mouseX, 0, width, 0, 255);   // vermelho varia com X
-      let g = map(mouseY, 0, height, 0, 255);  // verde varia com Y
-      let b = 150;                              // azul fixo
+      background(20, 30, 40, 50); // deixa rastro suave
 
-      background(220);
-      noStroke();
-      fill(r, g, b);
-      circle(200, 200, 100);
+      for (let b of bolhas) {
+        // movimento aleatório
+        b.x += random(-10, 10);
+        b.y += random(-10, 10);
+
+        // mantém dentro da tela
+        b.x = constrain(b.x, 0, width);
+        b.y = constrain(b.y, 0, height);
+
+        noStroke();
+        fill(b.cor[0], b.cor[1], b.cor[2], 150);
+        circle(b.x, b.y, b.r);
+      }
     }
   </script>
 </body>
 </html>
+
