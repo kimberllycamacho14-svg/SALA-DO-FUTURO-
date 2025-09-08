@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>p5.js – Círculo com cor baseada em X e Y</title>
+  <!-- p5.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.3/p5.min.js"></script>
+  <style>
+    body { margin: 0; display: grid; place-items: center; height: 100vh; background: #f4f4f4; }
+    main { box-shadow: 0 10px 30px rgba(0,0,0,.1); border-radius: 12px; overflow: hidden; }
+    /* Ajusta o canvas para não ficar borrado em telas retina */
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <main></main>
+  <script>
+    function setup() {
+      const cnv = createCanvas(400, 400);
+      // Opcional: monta o canvas dentro do <main>
+      cnv.parent(document.querySelector('main'));
+    }
+
+    function draw() {
+      let r = map(mouseX, 0, width, 0, 255);   // vermelho varia com X
+      let g = map(mouseY, 0, height, 0, 255);  // verde varia com Y
+      let b = 150;                              // azul fixo
+
+      background(220);
+      noStroke();
+      fill(r, g, b);
+      circle(200, 200, 100);
+    }
+  </script>
+</body>
+</html>
