@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Random Walk Colorido</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.3/p5.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      border: 2px solid #fff;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    let bolhas = [];
+
+    function setup() {
+      createCanvas(400, 400);
+      // cria várias bolhas em posições aleatórias
+      for (let i = 0; i < 20; i++) {
+        bolhas.push({
+          x: random(width),
+          y: random(height),
+          r: random(20, 40),     // raio
+          cor: [random(255), random(255), random(255)] // cor aleatória
+        });
+      }
+    }
+
+    function draw() {
+      background(20, 30, 40, 50); // deixa rastro suave
+
+      for (let b of bolhas) {
+        // movimento aleatório
+        b.x += random(-10, 10);
+        b.y += random(-10, 10);
+
+        // mantém dentro da tela
+        b.x = constrain(b.x, 0, width);
+        b.y = constrain(b.y, 0, height);
+
+        noStroke();
+        fill(b.cor[0], b.cor[1], b.cor[2], 150);
+        circle(b.x, b.y, b.r);
+      }
+    }
+  </script>
+</body>
+</html>
